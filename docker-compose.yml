@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/movie_task
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=foo
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=movie_task_db
+      - SQL_USER=movie_task_user
+      - SQL_PASSWORD=movie_task123
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
+
+  db:
+    image: postgres:12.0-alpine
+    environment:
+      - POSTGRES_USER=movie_task_user
+      - POSTGRES_PASSWORD=movie_task123
+      - POSTGRES_DB=movie_task_db
+
+volumes:
+  postgres_data:

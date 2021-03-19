@@ -15,7 +15,7 @@ Thanks to that application u can download and processes information about movies
 
 Run
 ====
-WITH DOCKER:
+USING DOCKER:
 
 Build and run:
 ```
@@ -39,7 +39,7 @@ RUN SCRIPT:
     docker-compose exec web python import_data.py command
 ```
 Available commands:
-
+====
 :arrow_forward: fetch_data + number of movies + movies titles
 
 + downloads movies from the given list

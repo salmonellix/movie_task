@@ -17,11 +17,3 @@ class Movie_IMDB(models.Model):
     def __str__(self):
         return self.title + str(self.year)
 
-
-class Movies_List(models.Model):
-    title = models.CharField(max_length=200, db_index=True)
-    movie_id = models.ManyToManyField(Movie_IMDB)
-
-
-    def __str__(self):
-        return str(self.id)

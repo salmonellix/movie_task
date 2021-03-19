@@ -1,12 +1,10 @@
-import sys
-
 import requests
 import json
 import os
 import sys
-# import pandas as pd
-# import sqlite3
-# from sqlalchemy import create_engine
+import pandas as pd
+import sqlite3
+from sqlalchemy import create_engine
 import time
 
 
@@ -45,6 +43,9 @@ def get_movie_info(title):
         print("Cant fetch data")
 
 
+
+
+# dowload data from IMDB using OMDB API and save to MOVIE TASK API
 def fetch_data():
 
     movies_nbr = int(sys.argv[2])
@@ -137,9 +138,9 @@ def download_save():
         data_df.to_sql("table_name", con=engine)
 
 
+
+
 ## command options
-
-
 command = str(sys.argv[1])
 
 if command == 'fetch_data':

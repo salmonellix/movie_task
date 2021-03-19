@@ -44,7 +44,7 @@ class HighestGrossingViewSet(APIView):
         return Response(serializer.data)
 
 
-class AverageRatingViewSet(generics.ListAPIView):
+class RatingViewSet(generics.ListAPIView):
     queryset = Movie_IMDB.objects.all()
     serializer_class = RatingSerializer
 

@@ -1,13 +1,13 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import MovieBestRatedViewSet, AllTitleViewSet, HighestGrossingViewSet, RatingViewSet, MovieImdbViewSet, MoviesListViewSet
+from .views import MovieBestRatedViewSet, AllTitleViewSet, HighestGrossingViewSet, RatingViewSet, MovieImdbViewSet
 
 
 
 router = routers.DefaultRouter()
 router.register(r'movies', MovieImdbViewSet)
-router.register(r'lists', MoviesListViewSet)
+
 
 
 urlpatterns = [

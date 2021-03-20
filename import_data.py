@@ -2,7 +2,7 @@ import requests
 import json
 import os
 import sys
-import pandas as pd
+# import pandas as pd
 import sqlite3
 from sqlalchemy import create_engine
 import time
@@ -84,13 +84,14 @@ def best_rated():
     print(api_response["title"])
 
 
-# best rated movies from IMDB databsae
-def best_rated_IMDB():
-
-    best_IMDB_movie = pd.read_html("https://www.imdb.com/chart/top/?ref_=nv_mv_250/")
-    print('Best rated movie from IMDB')
-    print(f'TITLE: {best_IMDB_movie[0]["Rank & Title"].iloc[0]}' )
-    print(f'RATING: {best_IMDB_movie[0]["IMDb Rating"].iloc[0]}')
+########### use only when Pandas instaled
+# # best rated movies from IMDB databsae
+# def best_rated_IMDB():
+#
+#     best_IMDB_movie = pd.read_html("https://www.imdb.com/chart/top/?ref_=nv_mv_250/")
+#     print('Best rated movie from IMDB')
+#     print(f'TITLE: {best_IMDB_movie[0]["Rank & Title"].iloc[0]}' )
+#     print(f'RATING: {best_IMDB_movie[0]["IMDb Rating"].iloc[0]}')
 
 
 # movie with highest box office from saved movies

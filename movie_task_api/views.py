@@ -16,12 +16,6 @@ class MovieImdbViewSet(viewsets.ModelViewSet):
     search_fields = ['title']
 
 
-class MoviesListViewSet(viewsets.ModelViewSet):
-    queryset = Movies_List.objects.all().order_by('title')
-    serializer_class = MoviesListSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title']
-
 
 class MovieBestRatedViewSet(APIView):
 

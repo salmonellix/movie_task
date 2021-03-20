@@ -11,7 +11,7 @@ WORKDIR /movie_task
 # install psycopg2 dependencies
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
-
+RUN apk add build-base
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt .

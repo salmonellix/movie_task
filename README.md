@@ -80,8 +80,3 @@ Available commands:
     docker-compose exec web python import_data.py average_rating
 ```
 
-:arrow_forward: best_rated_IMDB
-+ displays the highest rated movie of any movie available on IMDB
-```
-    docker-compose exec web python import_data.py best_rated_IMDB
-```

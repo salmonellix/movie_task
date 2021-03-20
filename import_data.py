@@ -1,22 +1,18 @@
-import requests
 import json
-import os
 import sys
-# import pandas as pd
-import sqlite3
+import pandas as pd
 from sqlalchemy import create_engine
-import time
-
+import requests
 
 
 def get_movie_info(title):
 
     #api key:
     my_key = '9e827d46'
-    r = requests.get(f'http://www.omdbapi.com/?t={title}&apikey={my_key}')
+    get_response = requests.get(f'http://www.omdbapi.com/?t={title}&apikey={my_key}')
 
     # extracting data in json format
-    fetched_data = r.json()
+    fetched_data = get_response.json()
     data = {field.lower(): value for field, value in fetched_data.items()}
 
     try:
@@ -60,8 +56,8 @@ def fetch_data():
             # post api-endpoint
             API_ENDPOINT = "http://127.0.0.1:8000/movies/"
 
-            r = requests.post(url=API_ENDPOINT, data=movie_info)
-            api_response = r.text
+            get_response = requests.post(url=API_ENDPOINT, data=movie_info)
+            api_response = get_response.text
             print("API response is:%s" % api_response)
 
 
@@ -69,8 +65,8 @@ def fetch_data():
 def titles_list():
 
     # send get request to get all titles
-    r = requests.get("http://127.0.0.1:8000/movies/all_title")
-    api_response = r.json()
+    get_response = requests.get("http://127.0.0.1:8000/movies/all_title")
+    api_response = get_response.json()
     # print all movies titles
     for movie in api_response:
         print(movie["title"])
@@ -79,26 +75,26 @@ def titles_list():
 # best rated movie from saved database
 def best_rated():
 
-    r = requests.get("http://127.0.0.1:8000/movies/best_rated")
-    api_response = r.json()
+    get_response = requests.get("http://127.0.0.1:8000/movies/best_rated")
+    api_response = get_response.json()
     print(api_response["title"])
 
 
 ########### use only when Pandas instaled
-# # best rated movies from IMDB databsae
-# def best_rated_IMDB():
-#
-#     best_IMDB_movie = pd.read_html("https://www.imdb.com/chart/top/?ref_=nv_mv_250/")
-#     print('Best rated movie from IMDB')
-#     print(f'TITLE: {best_IMDB_movie[0]["Rank & Title"].iloc[0]}' )
-#     print(f'RATING: {best_IMDB_movie[0]["IMDb Rating"].iloc[0]}')
+# best rated movies from IMDB databsae
+def best_rated_IMDB():
+
+    best_IMDB_movie = pd.read_html("https://www.imdb.com/chart/top/?ref_=nv_mv_250/")
+    print('Best rated movie from IMDB')
+    print(f'TITLE: {best_IMDB_movie[0]["Rank & Title"].iloc[0]}' )
+    print(f'RATING: {best_IMDB_movie[0]["IMDb Rating"].iloc[0]}')
 
 
 # movie with highest box office from saved movies
 def highest_grossing():
 
-    r = requests.get("http://127.0.0.1:8000/movies/highest_grossing")
-    api_response = r.json()
+    get_response = requests.get("http://127.0.0.1:8000/movies/highest_grossing")
+    api_response = get_response.json()
     print(api_response["title"])
     print(api_response["box_office"])
 
@@ -106,8 +102,8 @@ def highest_grossing():
 # average rating based on saved movies
 def average_rating():
 
-    r = requests.get("http://127.0.0.1:8000/movies/ratings")
-    api_response = r.json()
+    get_response = requests.get("http://127.0.0.1:8000/movies/ratings")
+    api_response = get_response.json()
     all_ratings = 0
 
     for rating in api_response:
@@ -118,20 +114,20 @@ def average_rating():
 # dowload saved movie 3 options
 def download_save():
 
-    format = str(sys.argv[2])
+    format_name = str(sys.argv[2])
     file_name = str(sys.argv[3])
-    r = requests.get("http://127.0.0.1:8000/movies/")
-    api_response = r.json()
+    get_response = requests.get("http://127.0.0.1:8000/movies/")
+    api_response = get_response.json()
 
-    if format == 'json':
+    if format_name == 'json':
         with open(f'{file_name}.json', 'w') as json_file:
             json.dump(api_response, json_file)
 
-    elif format == 'csv':
+    elif format_name == 'csv':
         file = pd.read_json(json.dumps(api_response))
         file.to_csv(f'{file_name}.csv')
 
-    elif format == 'sql':
+    elif format_name == 'sql':
 
         data_df = pd.DataFrame(api_response)
 
@@ -142,25 +138,25 @@ def download_save():
 
 
 ## command options
-command = str(sys.argv[1])
+COMAND = str(sys.argv[1])
 
-if command == 'fetch_data':
+if COMAND == 'fetch_data':
     fetch_data()
 
-if command == 'titles_list':
+if COMAND == 'titles_list':
     titles_list()
 
-if command == 'best_rated':
+if COMAND == 'best_rated':
     best_rated()
 
-if command == 'highest_grossing':
+if COMAND == 'highest_grossing':
     highest_grossing()
 
-if command == 'average_rating':
+if COMAND == 'average_rating':
     average_rating()
 
-if command == 'best_rated_IMDB':
+if COMAND == 'best_rated_IMDB':
     best_rated_IMDB()
 
-if command == 'download_save':
+if COMAND == 'download_save':
     download_save()

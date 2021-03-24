@@ -3,8 +3,8 @@ FROM python:3.6.4-alpine3.7
 
 RUN apk --update add --no-cache g++ gcc libxslt-dev
 RUN pip install --upgrade pip
-RUN pip install lxml
-RUN pip install pandas
+#RUN pip install lxml
+#RUN pip install pandas
 
 
 # set environment variables

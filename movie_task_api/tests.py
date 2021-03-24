@@ -1,16 +1,10 @@
 from django.test import TestCase
-from django.test import SimpleTestCase
-from django.urls import reverse, resolve
 from .models import Movie_IMDB
 from rest_framework.test import APIClient, APIRequestFactory, RequestsClient
-import responses
-import requests
-from rest_framework import status
-import json
+
 
 class TestMovieTaskApi(TestCase):
 
-    # response = responses.RequestsMock()
 
     @classmethod
     def setUpClass(cls):
@@ -18,6 +12,7 @@ class TestMovieTaskApi(TestCase):
 
         movie = Movie_IMDB.objects.create(title="Django", imdb_rating=7.2, imdb_id = "tt0060315", box_office = 6.0,
                                           genre = "Action, Western", type = "movie", year = 1966)
+
 
     def test_fetch_create_movie(self):
         client = APIClient()
@@ -35,6 +30,7 @@ class TestMovieTaskApi(TestCase):
         # self.assertEquals(1, len(response.json()))
         movie = response.json()[0]
         self.assertEquals('Django', movie['title'])
+
 
     def test_delete_movie(self):
         client = APIClient()
